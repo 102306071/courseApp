@@ -1,0 +1,36 @@
+<h2>Edit Course</h2>
+
+<%= form_for  @course  do |f|%>
+
+<div>
+	Course name
+	<%=f.text_field :name %>
+</div>
+
+<div>
+	Teacher
+	<%=f.text_field :teacher %>
+
+</div>
+
+<div>
+	Class time
+	<%=f.text_field :time %>
+</div>
+
+<div>
+	Class location
+	<%=f.text_field :place %>
+</div>
+
+<div>
+	Credits number
+	<%=f.text_field :credit %>
+</div>
+
+
+
+
+<%=f.submit %>
+
+<%end%>
