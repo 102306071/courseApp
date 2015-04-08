@@ -1,18 +1,21 @@
 <h2>Courses list</h2>
 
+
 <%= form_tag courses_path,method:"get" do%>
-Name<%= text_field_tag :name%>
-Teacher<%=text_field_tag :teacher%>
-Time <%=text_field_tag :time%>
-Place <%=text_field_tag :place%>
-Credit <%=text_field_tag :credit%>
-<%=submit_tag "search"%>
+<div class="search">
+	Name<%= text_field_tag :name%>
+	Teacher<%=text_field_tag :teacher%>
+	Time <%=text_field_tag :time%>
+	<%=submit_tag "search"%>
+</div>
 <%end%>
 
-
+<div id="list">
 <% @courses.each do|course| %>
-	<%= link_to  course.name , course_path(course) %>
+	<%= link_to  course.name , course_path(course) %> &nbsp;&nbsp;
 	<%= link_to "edit", edit_course_path(course) %>
 	<%= link_to  "delete" , course_path(course) ,method:"delete"%>
 	<br>
 <%end%>
+<%= link_to "show all", courses_path %>
+</div>

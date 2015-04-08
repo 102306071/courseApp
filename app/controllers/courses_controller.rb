@@ -1,21 +1,47 @@
 class CoursesController < ApplicationController
 	def index
-		@courses=Course.all
-		if params[:name].present?
-			@courses=@courses.where("name like ?","%#{params[:name]}%")
+		if params[:name].blank?
+			if params[:teacher].blank?
+				if params[:time].blank?
+					@courses=Course.all
+				end
+			end
 		end
-		if params[:teacher].present?
-			@courses=@courses.where("name like ?","%#{params[:teacher]}%")
+		if params[:name].present? 
+			if params[:teacher].present?
+				if params[:time].present?
+					@courses = Course.where("name like ?","%#{params[:name]}%").where("teacher like ?","%#{params[:teacher]}%").where("time like ?","%#{params[:time]}%")
+				end
+				if params[:time].blank?
+					@courses = Course.where("name like ?","%#{params[:name]}%").where("teacher like ?","%#{params[:teacher]}%")
+				end
+			end
+			if params[:teacher].blank?
+				if params[:time].present?
+					@courses = Course.where("name like ?","%#{params[:name]}%").where("time like ?","%#{params[:time]}%")
+				end
+				if params[:time].blank?
+					@courses = Course.where("name like ?","%#{params[:name]}%")
+				end
+			end
 		end
-		if params[:time].present?
-			@courses=@courses.where("name like ?","%#{params[:time]}%")
+		if params[:name].blank?
+			if params[:teacher].present?
+				if params[:time].present?
+					@courses = Course.where("teacher like ?","%#{params[:teacher]}%").where("time like ?","%#{params[:time]}%")
+				end
+				if params[:time].blank?
+					@courses = Course.where("teacher like ?","%#{params[:teacher]}%")
+				end
+			end
 		end
-		if params[:place].present?
-			@courses=@courses.where("name like ?","%#{params[:place]}%")
-		end
-		if params[:credit].present?
-			@courses=@courses.where("name like ?","%#{params[:credit]}%")
-		end
+		if params[:name].blank?
+			if params[:teacher].blank?
+				if params[:time].present?
+					@courses = Course.where("time like ?","%#{params[:time]}%")
+				end
+			end	
+		end	
 	end
 
 	def show
